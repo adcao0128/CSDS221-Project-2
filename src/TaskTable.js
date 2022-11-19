@@ -11,16 +11,16 @@ export default class TaskTable extends React.Component {
   render() {
     return (
       <div>
-        <TableContainer>
+        <TableContainer sx={{position: 'absolute', top: '8%'}}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Title</TableCell>
-                <TableCell align="center" color='gray'>Description</TableCell>
-                <TableCell align="center" color='gray'>Deadline</TableCell>
-                <TableCell align="center" color='gray'>Priority</TableCell>
-                <TableCell align="center" color='gray'>Is Complete</TableCell>
-                <TableCell align="center" color='gray'>Action</TableCell>
+                <TableCell align="center" sx={{color: 'gray'}}>Title</TableCell>
+                <TableCell align="center" sx={{color: 'gray'}}>Description</TableCell>
+                <TableCell align="center" sx={{color: 'gray'}}>Deadline</TableCell>
+                <TableCell align="center" sx={{color: 'gray'}}>Priority</TableCell>
+                <TableCell align="center" sx={{color: 'gray'}}>Is Complete</TableCell>
+                <TableCell align="center" sx={{color: 'gray'}}>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody></TableBody>
