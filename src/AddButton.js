@@ -49,6 +49,7 @@ export default class AddButton extends React.Component {
         ADD
       </Button>
       <SimpleDialog
+        hideTitle={false}
         open={this.state.open}
         handleClose={this.handleClose}
         handleCancel={this.handleCancel}

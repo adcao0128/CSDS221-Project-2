@@ -79,8 +79,7 @@ export default class SimpleDialog extends React.Component {
           alignItems: 'center',
         }}
       >
-        <AddCircleIcon />
-        Add Task
+        {!this.props.hideTitle ? <div><AddCircleIcon />Add Task</div> : <div><AddCircleIcon />Edit Task</div>}
       </DialogTitle>
       <Box
         component="form"

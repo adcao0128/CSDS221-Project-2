@@ -11,7 +11,7 @@ export default class UpdateButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
     }
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -41,6 +41,7 @@ export default class UpdateButton extends React.Component {
     <div>
       <Button onClick={this.handleOpen} size='small' variant='contained' sx={{bgColor: 'primary.dark', width: '82.5%'}}><EditIcon />Update</Button>
       <SimpleDialog
+        hideTitle={true}
         open={this.state.open}
         handleClose={this.handleClose}
         handleCancel={this.handleCancel}
