@@ -1,14 +1,8 @@
 import Button from '@mui/material/Button';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import React from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-
 import React, { Component } from 'react';
 import React, { useState } from 'react';
-
-
-
 import SimpleDialog from './SimpleDialog';
 
 export function addTask({arr}) {
@@ -20,6 +14,7 @@ export function addTask({arr}) {
 export default function AddButton() {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(null);
+  
 
   const handleClickOpen = () => {
     setOpen(true);
