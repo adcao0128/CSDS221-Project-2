@@ -27,6 +27,12 @@ export default class SimpleDialog extends React.Component {
       priority: '',
       isComplete: false,
     }
+    this.handleAdd = this.handleAdd.bind(this);
+  }
+
+  handleAdd() {
+    
+    this.props.handleClose();
   }
 
   render() {
@@ -79,7 +85,7 @@ export default class SimpleDialog extends React.Component {
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
-          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.props.handleClose}>
+          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleAdd}>
             <AddCircleIcon />
             Add
           </Button>

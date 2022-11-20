@@ -22,7 +22,7 @@ export default class AddButton extends React.Component {
     });
   }
 
-  handleClose(title, description, deadline, priority) {
+  handleClose() {
     this.setState({
       open: false
     });
@@ -50,6 +50,7 @@ export default class AddButton extends React.Component {
         open={this.state.open}
         handleClose={this.handleClose}
         handleCancel={this.handleCancel}
+        taskList={this.props.taskList}
       />
     </div>
   );
