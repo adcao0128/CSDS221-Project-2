@@ -7,8 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-export default class TaskTable extends React.Component {
-  render() {
+export default function TaskTable() {
+  const tasks = [];
     return (
       <div>
         <TableContainer sx={{position: 'absolute', top: '8%'}}>
@@ -28,5 +28,4 @@ export default class TaskTable extends React.Component {
         </TableContainer>
       </div>
     );
-  }
 }
