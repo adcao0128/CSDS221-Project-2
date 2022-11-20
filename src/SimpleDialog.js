@@ -28,10 +28,25 @@ export default class SimpleDialog extends React.Component {
       isComplete: false,
     }
     this.handleAdd = this.handleAdd.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+  }
+
+  handleTitleChange(event) {
+    this.setState({
+      title: event.target.value
+    });
+    console.log(this.state.title);
+  }
+
+  handleDescriptionChange(event) {
+    this.setState({
+      description: event.target.value}
+    );
   }
 
   handleAdd() {
-    
+    this.props.updateFunction(this.state.title, this.state.description, this.state.deadline, this.state.priority);
     this.props.handleClose();
   }
 
@@ -62,17 +77,17 @@ export default class SimpleDialog extends React.Component {
         autoComplete="off"
       >
         <div>
-          <TextField id="Title" label="Title" onChange={(value)=> {this.setState({title: value})}}/>
+          <TextField id="Title" label="Title" onChange={this.handleTitleChange}
+      />
           <br />
-          <TextField id="Description" label="Description" />
+          <TextField id="Description" label="Description" onChange={this.handleDescriptionChange}/>
           <br />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Deadline"
               value={this.state.deadline}
-              onChange={(newValue) => {
-                this.setState({deadline: newValue});
-              }}
+              onChange={(deadlineChange) => {this.setState({
+                deadline: deadlineChange.target.value});}}
               renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>

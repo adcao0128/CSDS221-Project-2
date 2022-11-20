@@ -15,9 +15,18 @@ export default class TaskTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [],
+      tasks: []
     }
+    this.handleUpdate=this.handleUpdate.bind(this);
   }
+
+  handleUpdate(title, description, deadline, priority) {
+    this.setState({
+      tasks: [...this.state.tasks, [title, description, deadline, priority]]
+    });
+    console.log(this.state.tasks);
+  }
+
   render() {
     return (
       <div>
@@ -35,9 +44,9 @@ export default class TaskTable extends React.Component {
         >
           <MenuIcon />
           <Typography variant="button">FRAMEWORKS</Typography>
-          <AddButton taskList={this.state.tasks}/>
+          <AddButton updateFunction={this.handleUpdate}/>
         </Card>
-        <TableContainer sx={{position: 'absolute', top: '8%'}}>
+        <TableContainer sx={{position: 'absolute', top: '50px'}}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>

@@ -1,8 +1,10 @@
+//imports
 import Button from '@mui/material/Button';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import React from 'react';
 import React, { Component } from 'react';
 import React, { useState } from 'react';
+//My defined imports
 import SimpleDialog from './SimpleDialog';
 
 export default class AddButton extends React.Component {
@@ -50,7 +52,7 @@ export default class AddButton extends React.Component {
         open={this.state.open}
         handleClose={this.handleClose}
         handleCancel={this.handleCancel}
-        taskList={this.props.taskList}
+        updateFunction={this.props.updateFunction}
       />
     </div>
   );
