@@ -64,6 +64,13 @@ export default class SimpleDialog extends React.Component {
 
   handleAdd() {
     this.props.addFunction(this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
+    this.setState({
+      title: '',
+      description: '',
+      deadline: null,
+      priority: this.props.priority,
+      isComplete: false,
+    });
     this.props.handleClose();
   }
 
@@ -77,8 +84,8 @@ export default class SimpleDialog extends React.Component {
     <div>
     <Dialog open={this.props.open}
       PaperProps={{ style: {
-      minHeight: '70%',
-      maxHeight: '70%',
+      minHeight: '60%',
+      maxHeight: '60%',
     }}}>
       <DialogTitle
         sx={{

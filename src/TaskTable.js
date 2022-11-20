@@ -55,15 +55,14 @@ export default class TaskTable extends React.Component {
   }
 
   handleUpdate(task, title, description, deadline, priority, isComplete) {
-    let nextTask = this.state.tasks.map((curTask) => task = task == curTask ? [title, description, deadline, priority, isComplete] : task)
+    let nextTask = this.state.tasks.map((curTask) => curTask = task[0] == curTask[0] ? [title, description, deadline, priority, isComplete] : curTask)
+    
     this.setState(
       {
         tasks: nextTask
       }
     );
   }
-
-
 
   render() {
     
