@@ -7,11 +7,9 @@ import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TextField from '@mui/material/TextField';
-import DeadlineDatePicker from './DeadlineDatePicker'
 import Button from '@mui/material/Button';
 import React from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -45,12 +43,14 @@ export default class SimpleDialog extends React.Component {
       title: this.props.thisTitle,
       description: this.props.thisDescription,
       deadline: null,
-      priority: this.props.priority,
+      priority: this.props.thisPriority,
       isComplete: false,
       titleError: false,
       descriptionError: false,
       titleMessage: '',
       descriptionMessage: '',
+      deadlineError: false,
+      deadlineMessage: '',
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -120,13 +120,28 @@ export default class SimpleDialog extends React.Component {
         descriptionMessage: ""
       })
     }
+    /*
+    if(this.state.deadline == '' || this.state.deadline == null){
+      this.setState({
+        deadlineError: true,
+        deadlineMessage: "Deadline is Required!"
+      })
+      validated = false;
+    }
+    else {
+      this.setState({
+        deadlineError: false,
+        deadlineMessage: ""
+      })
+    }
+    */
     if(validated) {
       this.props.addFunction(this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
       this.setState({
         title: '',
         description: '',
         deadline: null,
-        priority: this.props.priority,
+        priority: 'Low',
         isComplete: false,
       });
       toastr.success("Task added sucesssfuly!")
@@ -144,8 +159,14 @@ export default class SimpleDialog extends React.Component {
       title: '',
       description: '',
       deadline: null,
-      priority: this.props.priority,
+      priority: 'Low',
       isComplete: false,
+      titleError: false,
+      descriptionError: false,
+      deadlineError: false,
+      titleMessage: '',
+      descriptionMessage: '',
+      deadlineMessage: '',
     });
     this.props.handleCancel();
   }
@@ -155,8 +176,8 @@ export default class SimpleDialog extends React.Component {
     <div>
     <Dialog open={this.props.open}
       PaperProps={{ style: {
-      minHeight: '60%',
-      maxHeight: '60%',
+      minHeight: '50%',
+      maxHeight: '90%',
     }}}>
       <DialogTitle
         sx={{
@@ -171,7 +192,7 @@ export default class SimpleDialog extends React.Component {
       <Box
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 2, width: '32ch', height: '100%'},
+          '& .MuiTextField-root': { m: 2, width: '32ch', height: '50%'},
         }}
         autoComplete="off"
       >
@@ -186,7 +207,7 @@ export default class SimpleDialog extends React.Component {
               label="Deadline"
               value={this.state.deadline}
               onChange={this.handleDeadlineChange}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => <TextField error={this.state.deadlineError} helperText={this.state.deadlineMessage} {...params} />}
             />
           </LocalizationProvider>
           <br />
@@ -198,17 +219,24 @@ export default class SimpleDialog extends React.Component {
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
-          {!this.props.hideTitle ? <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleAdd}>
+          <br />
+          <br />
+          <br />
+          <br />
+          {!this.props.hideTitle ? <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%'}} onClick={this.handleAdd}>
             <AddCircleIcon />
             Add
-          </Button> : <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleUpdate}>
+          </Button> : <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%'}} onClick={this.handleUpdate}>
             <EditIcon />
             Edit
           </Button>}
-          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={this.handleCancelDoNothing} >
+          <Button color='error' size='small' variant='contained' sx = {{position: 'absolute', right: '5%'}} onClick={this.handleCancelDoNothing} >
             <DoNotDisturbAltIcon />
             Cancel
           </Button>
+          <br />
+          <br />
+          <br />
         </div>
       </Box>
     </Dialog>
