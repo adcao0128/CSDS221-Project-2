@@ -20,12 +20,12 @@ export default class TaskTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [],
+      tasks: []
     }
-    this.handleUpdate=this.handleUpdate.bind(this);
+    this.handleAdd=this.handleAdd.bind(this);
   }
 
-  handleUpdate(title, description, deadline, priority, isComplete) {
+  handleAdd(title, description, deadline, priority, isComplete) {
     this.setState({
       tasks: [...this.state.tasks, [title, description, deadline, priority, isComplete]]
     });
@@ -63,7 +63,7 @@ export default class TaskTable extends React.Component {
             <TableCell align="center">{task[3]}</TableCell>
             <TableCell align="center"><Checkbox checked={task[4]} onChange={() => this.handleChecked(task) }/></TableCell>
             <TableCell align="center">
-              {!task[4] && <UpdateButton />}
+              {!task[4] && <UpdateButton updateFunction={this.handleUpdate}/>}
               <Button size='small' variant='contained' color='error' onClick={() => this.handleDelete(task)}><HighlightOffIcon />Delete</Button>
             </TableCell>
           </TableRow>);
@@ -83,7 +83,7 @@ export default class TaskTable extends React.Component {
         >
           <MenuIcon />
           <Typography variant="button">FRAMEWORKS</Typography>
-          <AddButton updateFunction={this.handleUpdate}/>
+          <AddButton addFunction={this.handleAdd}/>
         </Card>
         <TableContainer sx={{position: 'absolute', top: '50px'}}>
           <Table aria-label="simple table">

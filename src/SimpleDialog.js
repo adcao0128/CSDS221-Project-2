@@ -59,7 +59,7 @@ export default class SimpleDialog extends React.Component {
   }
 
   handleAdd() {
-    this.props.updateFunction(this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
+    this.props.addFunction(this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
     this.props.handleClose();
   }
 

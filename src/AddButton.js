@@ -52,7 +52,7 @@ export default class AddButton extends React.Component {
         open={this.state.open}
         handleClose={this.handleClose}
         handleCancel={this.handleCancel}
-        updateFunction={this.props.updateFunction}
+        addFunction={this.props.addFunction}
       />
     </div>
   );
