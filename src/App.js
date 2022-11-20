@@ -6,23 +6,10 @@ import './style.css';
 //My defined imports
 import TaskTable from './TaskTable';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tasks: []
-    }
-  }
-
-  update() {
-    this.setState(tsk)
-  }
-
-  render() {
+export default function App() {
     return (
       <div>
         <TaskTable/>
       </div>
     );
-  }
 }
