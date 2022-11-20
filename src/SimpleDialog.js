@@ -16,7 +16,10 @@ import Button from '@mui/material/Button';
 import React from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import EditIcon from '@mui/icons-material/Edit';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+
 export default class SimpleDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -79,7 +82,7 @@ export default class SimpleDialog extends React.Component {
           alignItems: 'center',
         }}
       >
-        {!this.props.hideTitle ? <div><AddCircleIcon />Add Task</div> : <div><AddCircleIcon />Edit Task</div>}
+        {!this.props.hideTitle ? <div><AddCircleIcon sx={{position: 'relative', top: '5px'}}/>Add Task</div> : <div><EditIcon sx={{position: 'relative', top: '5px'}}/>Edit Task</div>}
       </DialogTitle>
       <Box
         component="form"
@@ -89,8 +92,8 @@ export default class SimpleDialog extends React.Component {
         autoComplete="off"
       >
         <div>
-          <TextField id="Title" label="Title" onChange={this.handleTitleChange}
-      />
+          {!this.props.hideTitle && <TextField id="Title" label="Title" onChange={this.handleTitleChange} />}
+        
           <br />
           <TextField id="Description" label="Description" onChange={this.handleDescriptionChange}/>
           <br />
@@ -111,10 +114,13 @@ export default class SimpleDialog extends React.Component {
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
-          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleAdd}>
+          {!this.props.hideTitle ? <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleAdd}>
             <AddCircleIcon />
             Add
-          </Button>
+          </Button> : <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleAdd}>
+            <EditIcon />
+            Edit
+          </Button>}
           <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={this.props.handleCancel} >
             <DoNotDisturbAltIcon />
             Cancel

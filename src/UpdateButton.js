@@ -39,7 +39,7 @@ export default class UpdateButton extends React.Component {
   render() {
   return (
     <div>
-      <Button onClick={this.handleOpen} size='small' variant='contained' sx={{bgColor: 'primary.dark', width: '82.5%'}}><EditIcon />Update</Button>
+      <Button onClick={this.handleOpen} size='small' variant='contained' sx={{bgColor: 'primary.dark'}}><EditIcon />Update</Button>
       <SimpleDialog
         hideTitle={true}
         open={this.state.open}
