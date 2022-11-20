@@ -79,7 +79,7 @@ export default class SimpleDialog extends React.Component {
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
-          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.props.handleClose(this.state.title,this.state.description,this.state.deadline,this.state.priority)}>
+          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.props.handleClose}>
             <AddCircleIcon />
             Add
           </Button>
