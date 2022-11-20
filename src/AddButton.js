@@ -43,7 +43,7 @@ export default class AddButton extends React.Component {
         onClick={this.handleOpen}
         variant="contained"
         size="small"
-        sx={{ position: 'absolute', right: '10px', top: '8px' }}
+        sx={{ width: '100px', position: 'absolute', right: '10px', top: '8px' }}
       >
         <AddCircleIcon />
         ADD

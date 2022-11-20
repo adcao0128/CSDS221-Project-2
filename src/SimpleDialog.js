@@ -152,8 +152,46 @@ export default class SimpleDialog extends React.Component {
   }
 
   handleUpdate(){
-    this.props.updateFunction(this.props.thisTask, this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
-    this.props.handleClose();
+    let validated = true; 
+    
+    if(this.state.description == '' || this.state.description == null){
+      this.setState({
+        descriptionError: true,
+        descriptionMessage: "Description is Required!"
+      })
+      validated = false;
+    }
+    else {
+      this.setState({
+        descriptionError: false,
+        descriptionMessage: ""
+      })
+    }
+    if(this.state.deadline == '' || this.state.deadline == null){
+      this.setState({
+        deadlineError: true,
+        deadlineMessage: "Deadline is Required!"
+      })
+      validated = false;
+    }
+    else {
+      this.setState({
+        deadlineError: false,
+        deadlineMessage: ""
+      })
+    }
+    if(validated) {
+      this.props.updateFunction(this.props.thisTask, this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
+      this.setState({
+        title: '',
+        description: '',
+        deadline: null,
+        priority: 'Low',
+        isComplete: false,
+      });
+      toastr.success('Task updated successfully!');
+      this.props.handleClose();
+    }
   }
 
   handleCancelAdd() {

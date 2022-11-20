@@ -84,7 +84,6 @@ export default class TaskTable extends React.Component {
         tasks: nextTask
       }
     );
-    toastr.success('Task sucessfully updated');
   }
 
   render() {
