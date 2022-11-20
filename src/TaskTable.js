@@ -7,8 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-export default function TaskTable() {
-  const tasks = [];
+export default function TaskTable(props) {
+  const tasks = props;
     return (
       <div>
         <TableContainer sx={{position: 'absolute', top: '8%'}}>

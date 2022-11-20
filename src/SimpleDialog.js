@@ -22,8 +22,8 @@ export default function SimpleDialog(props) {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = (value) => {
-    onClose(value);
+  const handleClick = () => {
+    selectedValue
   };
 
   return (
@@ -65,11 +65,11 @@ export default function SimpleDialog(props) {
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
-          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}}>
+          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={handleClick}>
             <AddCircleIcon />
             Add
           </Button>
-          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}}>
+          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={handleClose} >
             <DoNotDisturbAltIcon />
             Cancel
           </Button>
@@ -82,5 +82,4 @@ export default function SimpleDialog(props) {
 SimpleDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
 };
