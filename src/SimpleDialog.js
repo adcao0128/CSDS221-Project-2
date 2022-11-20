@@ -14,7 +14,9 @@ import TextField from '@mui/material/TextField';
 import DeadlineDatePicker from './DeadlineDatePicker'
 import Button from '@mui/material/Button';
 import React from 'react';
-
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 export default class SimpleDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,7 @@ export default class SimpleDialog extends React.Component {
   }
 
   handleAdd() {
-    let task = [this.state.title, this.state.description]
+    let task = [this.state.title, this.state.description, this.state.deadline, this.state.priority, ]
   }
 
   render() {
@@ -62,7 +64,12 @@ export default class SimpleDialog extends React.Component {
           <br />
           <TextField id="Description" label="Description" />
           <br />
-          <DeadlineDatePicker />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DatePicker
+        label="Deadline"
+        renderInput={(params) => <TextField {...params} />}
+      />
+    </LocalizationProvider>
           <br />
           <FormControl sx={{position: 'absolute', right: '10%'}}>
             <FormLabel>Priority</FormLabel>
