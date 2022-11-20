@@ -206,7 +206,11 @@ export default class SimpleDialog extends React.Component {
             <DatePicker
               label="Deadline"
               value={this.state.deadline}
-              onChange={this.handleDeadlineChange}
+              onChange={(value) => {
+                this.setState({
+                  deadline: value,
+                });
+              }}
               renderInput={(params) => <TextField error={this.state.deadlineError} helperText={this.state.deadlineMessage} {...params} />}
             />
           </LocalizationProvider>
