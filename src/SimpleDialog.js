@@ -26,7 +26,7 @@ export default class SimpleDialog extends React.Component {
     this.state = {
       title: this.props.thisTitle,
       description: this.props.thisDescription,
-      deadline: this.props.deadline,
+      deadline: null,
       priority: this.props.priority,
       isComplete: false,
     }
@@ -69,7 +69,6 @@ export default class SimpleDialog extends React.Component {
 
   handleUpdate(){
     this.props.updateFunction(this.props.thisTask, this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
-    console.log(this.props.thisTask);
     this.props.handleClose();
   }
 
