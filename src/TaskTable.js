@@ -10,24 +10,49 @@ import Card from '@mui/material/Card';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
 import AddButton from './AddButton';
+import Checkbox from '@mui/material/Checkbox';
+import Button from '@mui/material/Button';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import 'font-awesome/css/font-awesome.min.css';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default class TaskTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: []
+      tasks: [],
     }
     this.handleUpdate=this.handleUpdate.bind(this);
   }
 
-  handleUpdate(title, description, deadline, priority) {
+  handleUpdate(title, description, deadline, priority, isComplete) {
     this.setState({
-      tasks: [...this.state.tasks, [title, description, deadline, priority]]
+      tasks: [...this.state.tasks, [title, description, deadline, priority, isComplete]]
     });
-    console.log(this.state.tasks);
   }
 
+  handleChecked(){
+    this.setState({
+      
+    });
+  }
+
+
   render() {
+    
+    const tableItems = this.state.tasks.map((task) =>
+          <TableRow>
+            <TableCell align="center">{task[0]}</TableCell>
+            <TableCell align="center">{task[1]}</TableCell>
+            <TableCell align="center">{task[2]}</TableCell>
+            <TableCell align="center">{task[3]}</TableCell>
+            <TableCell align="center"><Checkbox key={task} onChange={ this.handleChecked }/></TableCell>
+            <TableCell align="center">
+              {task[4] && <Button size='small' variant='contained' sx={{bgColor: 'primary.dark', width: '80%'}}><EditIcon />Update</Button>}
+              <br />
+              <Button size='small' variant='contained' color='error'><HighlightOffIcon />Delete</Button>
+            </TableCell>
+          </TableRow>);
     return (
       <div>
         <Card
@@ -58,7 +83,9 @@ export default class TaskTable extends React.Component {
                 <TableCell align="center" sx={{color: 'gray'}}>Action</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody></TableBody>
+            <TableBody>
+              {tableItems}
+            </TableBody>
           </Table>
         </TableContainer>
       </div>
