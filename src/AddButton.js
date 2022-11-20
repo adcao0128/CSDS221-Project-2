@@ -5,28 +5,27 @@ import React, { Component } from 'react';
 import React, { useState } from 'react';
 import SimpleDialog from './SimpleDialog';
 
-export default function AddButton() {
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState(null);
+export default class AddButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+    }
+    this.handleOpen = this.handleOpen.bind(this);
+  }
   
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (value) => {
-    setOpen(false);
-    setSelectedValue(value);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
+  handleOpen() {
+    console.log("open");
+    this.setState({
+      open: true
+    });
   }
 
+  render() {
   return (
     <div>
       <Button
-        onClick={handleClickOpen}
+        onClick={this.state.handleOpen}
         variant="contained"
         size="small"
         sx={{ position: 'absolute', right: '10px', top: '8px' }}
@@ -35,11 +34,9 @@ export default function AddButton() {
         ADD
       </Button>
       <SimpleDialog
-        selectedValue={selectedValue}
-        open={open}
-        onClose={handleClose}
-        onCancel={handleCancel}
+        open={this.state.open}
       />
     </div>
   );
+  }
 }

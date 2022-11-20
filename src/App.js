@@ -10,6 +10,12 @@ import AddButton from './AddButton';
 import TaskTable from './TaskTable';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: [],
+    }
+  }
 
   render() {
     return (

@@ -15,19 +15,37 @@ import DeadlineDatePicker from './DeadlineDatePicker'
 import Button from '@mui/material/Button';
 import React from 'react';
 
-export default function SimpleDialog(props) {
-  const { onClose, onCancel, selectedValue, open } = props;
+export default class SimpleDialog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      title: '',
+      description: '',
+      deadline: '',
+      priority: '',
+      isComplete: false,
+    }
+    this.handleClose = this.handleClose.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+  }
 
-  const handleClose = () => {
-    onClose(selectedValue);
-  };
+  handleClose() {
+    this.setState({
+      open: false
+    });
+  }
 
-  const handleCancel = () => {
-    onCancel();
-  };
+  handleCancel() {
+    this.setState({
+      open: false
+    });
+  }
 
+  render() {
   return (
-    <Dialog onClose={handleClose} open={open}
+    <div>
+    <Dialog onClose={this.state.handleClose} open={this.state.open}
       PaperProps={{ style: {
       minHeight: '70%',
       maxHeight: '70%',
@@ -65,22 +83,18 @@ export default function SimpleDialog(props) {
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
-          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={handleClose}>
+          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.state.handleClose}>
             <AddCircleIcon />
             Add
           </Button>
-          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={handleCancel} >
+          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={this.state.handleCancel} >
             <DoNotDisturbAltIcon />
             Cancel
           </Button>
         </div>
       </Box>
     </Dialog>
+    </div>
   );
+      }
 }
-
-SimpleDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
-};
