@@ -1,6 +1,6 @@
 //imports
 import Button from '@mui/material/Button';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
 import React, { Component } from 'react';
 import React, { useState } from 'react';
@@ -39,15 +39,7 @@ export default class UpdateButton extends React.Component {
   render() {
   return (
     <div>
-      <Button
-        onClick={this.handleOpen}
-        variant="contained"
-        size="small"
-        sx={{ position: 'absolute', right: '10px', top: '8px' }}
-      >
-        <AddCircleIcon />
-        ADD
-      </Button>
+      <Button size='small' variant='contained' sx={{bgColor: 'primary.dark', width: '82.5%'}}><EditIcon />Update</Button>
       <SimpleDialog
         open={this.state.open}
         handleClose={this.handleClose}
