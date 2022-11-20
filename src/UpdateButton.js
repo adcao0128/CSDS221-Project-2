@@ -47,6 +47,10 @@ export default class UpdateButton extends React.Component {
         handleCancel={this.handleCancel}
         updateFunction={this.props.updateFunction}
         thisTask = {this.props.thisTask}
+        thisTitle = {this.props.thisTitle}
+        thisDescription = {this.props.thisDescription}
+        thisDeadline = {this.props.thisDeadline}
+        thisPriority = {this.props.thisPriority}
       />
     </div>
   );

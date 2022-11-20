@@ -54,6 +54,10 @@ export default class AddButton extends React.Component {
         handleClose={this.handleClose}
         handleCancel={this.handleCancel}
         addFunction={this.props.addFunction}
+        thisTitle = {''}
+        thisDescription = {''}
+        thisDeadline ={null}
+        thisPriority = {''}
       />
     </div>
   );

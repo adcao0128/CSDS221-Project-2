@@ -55,8 +55,7 @@ export default class TaskTable extends React.Component {
   }
 
   handleUpdate(task, title, description, deadline, priority, isComplete) {
-    let nextTask = this.state.tasks;
-    nextTask.filter((curTask) => task == curTask)[0] = [title, description, deadline, priority, isComplete];
+    let nextTask = this.state.tasks.map((curTask) => task = task == curTask ? [title, description, deadline, priority, isComplete] : task)
     this.setState(
       {
         tasks: nextTask
@@ -76,7 +75,7 @@ export default class TaskTable extends React.Component {
             <TableCell align="center">{task[3]}</TableCell>
             <TableCell align="center"><Checkbox checked={task[4]} onChange={() => this.handleChecked(task) }/></TableCell>
             <TableCell align="center">
-              {!task[4] && <UpdateButton thisTask = {task}updateFunction={this.handleUpdate}/>}
+              {!task[4] && <UpdateButton thisTask = {task} thisTitle={task[0]} thisDescription={task[1]} thisDeadline={task[2]} thisPriority={task[3]} updateFunction={this.handleUpdate}/>}
               <Button size='small' variant='contained' color='error' onClick={() => this.handleDelete(task)}><HighlightOffIcon />Delete</Button>
             </TableCell>
           </TableRow>);
