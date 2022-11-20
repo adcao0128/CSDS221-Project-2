@@ -46,6 +46,7 @@ export default class UpdateButton extends React.Component {
         handleClose={this.handleClose}
         handleCancel={this.handleCancel}
         updateFunction={this.props.updateFunction}
+        thisTask = {this.props.thisTask}
       />
     </div>
   );

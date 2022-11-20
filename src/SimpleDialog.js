@@ -35,6 +35,7 @@ export default class SimpleDialog extends React.Component {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleDeadlineChange = this.handleDeadlineChange.bind(this);
     this.handlePriorityChange = this.handlePriorityChange.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   handleTitleChange(event) {
@@ -63,6 +64,11 @@ export default class SimpleDialog extends React.Component {
 
   handleAdd() {
     this.props.addFunction(this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
+    this.props.handleClose();
+  }
+
+  handleUpdate(){
+    this.props.updateFunction(this.props.thisTask, this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
     this.props.handleClose();
   }
 
@@ -117,7 +123,7 @@ export default class SimpleDialog extends React.Component {
           {!this.props.hideTitle ? <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleAdd}>
             <AddCircleIcon />
             Add
-          </Button> : <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleAdd}>
+          </Button> : <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleUpdate}>
             <EditIcon />
             Edit
           </Button>}
