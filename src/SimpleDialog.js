@@ -19,6 +19,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import toastr from 'toastr'
 import 'toastr/build/toastr.min.css'
 import moment from 'moment'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPenToSquare} from '@fortawesome/free-solid-svg-icons'
 
 toastr.options = {
   'closeButton': true,
@@ -200,7 +202,7 @@ export default class SimpleDialog extends React.Component {
           alignItems: 'center',
         }}
       >
-        {!this.props.hideTitle ? <div><AddCircleIcon sx={{position: 'relative', top: '5px'}}/>Add Task</div> : <div><EditIcon sx={{position: 'relative', top: '5px'}}/>Edit Task</div>}
+        {!this.props.hideTitle ? <div><AddCircleIcon sx={{position: 'relative', top: '5px'}}/>Add Task</div> : <div><FontAwesomeIcon icon={faPenToSquare} />Edit Task</div>}
       </DialogTitle>
       <Box
         component="form"
@@ -244,7 +246,7 @@ export default class SimpleDialog extends React.Component {
             <AddCircleIcon />
             Add
           </Button> : <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%'}} onClick={this.handleUpdate}>
-            <EditIcon />
+            <FontAwesomeIcon icon={faPenToSquare} />
             Edit
           </Button>}
           {!this.props.hideTitle ? <Button color='error' size='small' variant='contained' sx = {{position: 'absolute', right: '5%'}} onClick={this.handleCancelAdd} >

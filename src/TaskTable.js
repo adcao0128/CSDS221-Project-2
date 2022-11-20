@@ -17,6 +17,8 @@ import 'font-awesome/css/font-awesome.min.css';
 import UpdateButton from './UpdateButton';
 import toastr from 'toastr'
 import 'toastr/build/toastr.min.css'
+import {faCircleXmark} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 toastr.options = {
   'closeButton': true,
@@ -96,7 +98,7 @@ export default class TaskTable extends React.Component {
             <TableCell align="center"><Checkbox checked={task[4]} onChange={() => this.handleChecked(task) }/></TableCell>
             <TableCell align="center">
               {!task[4] && <UpdateButton taskList={this.state.tasks} thisTask = {task} thisTitle={task[0]} thisDescription={task[1]} thisDeadline={task[2]} thisPriority={task[3]} updateFunction={this.handleUpdate}/>}
-              <Button sx={{paddingLeft: '12px',paddingRight: '12px'}}size='small' variant='contained' color='error' onClick={() => this.handleDelete(task)}><HighlightOffIcon />Delete</Button>
+              <Button size='small' variant='contained' color='error' onClick={() => this.handleDelete(task)}><FontAwesomeIcon icon={faCircleXmark} /> Delete</Button>
             </TableCell>
           </TableRow>);
     return (

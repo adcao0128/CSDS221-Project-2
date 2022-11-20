@@ -4,6 +4,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
 import React, { Component } from 'react';
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPenToSquare} from '@fortawesome/free-solid-svg-icons'
 //My defined imports
 import SimpleDialog from './SimpleDialog';
 
@@ -39,7 +41,7 @@ export default class UpdateButton extends React.Component {
   render() {
   return (
     <div>
-      <Button onClick={this.handleOpen} size='small' variant='contained' sx={{bgColor: 'primary.dark'}}><EditIcon />Update</Button>
+      <Button onClick={this.handleOpen} size='small' variant='contained' sx={{bgColor: 'primary.dark'}}><FontAwesomeIcon icon={faPenToSquare} />Update</Button>
       <SimpleDialog
         hideTitle={true}
         open={this.state.open}
