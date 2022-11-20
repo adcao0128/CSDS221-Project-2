@@ -31,10 +31,24 @@ export default class TaskTable extends React.Component {
     });
   }
 
-  handleChecked(){
-    this.setState({
-      
-    });
+  handleChecked(task){
+    let nextTask = this.state.tasks
+    nextTask.filter((curTask) => task == curTask)[0][4] = !nextTask.filter((curTask) => task == curTask)[0][4]
+    this.setState(
+      {
+        tasks: nextTask
+      }
+    )
+  }
+
+  handleDelete(task) {
+    let nextTask = this.state.tasks
+    nextTask = nextTask.filter((curTask) => task !== curTask)
+    this.setState(
+      {
+        tasks: nextTask
+      }
+    )
   }
 
 
@@ -46,11 +60,11 @@ export default class TaskTable extends React.Component {
             <TableCell align="center">{task[1]}</TableCell>
             <TableCell align="center">{task[2]}</TableCell>
             <TableCell align="center">{task[3]}</TableCell>
-            <TableCell align="center"><Checkbox key={task} onChange={ this.handleChecked }/></TableCell>
+            <TableCell align="center"><Checkbox checked={task[4]} onChange={() => this.handleChecked(task) }/></TableCell>
             <TableCell align="center">
-              {task[4] && <Button size='small' variant='contained' sx={{bgColor: 'primary.dark', width: '80%'}}><EditIcon />Update</Button>}
+              {!task[4] && <Button size='small' variant='contained' sx={{bgColor: 'primary.dark', width: '82.5%'}}><EditIcon />Update</Button>}
               <br />
-              <Button size='small' variant='contained' color='error'><HighlightOffIcon />Delete</Button>
+              <Button size='small' variant='contained' color='error' onClick={() => this.handleDelete(task)}><HighlightOffIcon />Delete</Button>
             </TableCell>
           </TableRow>);
     return (
