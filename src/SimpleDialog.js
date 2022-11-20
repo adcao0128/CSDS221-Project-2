@@ -19,33 +19,22 @@ export default class SimpleDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
       title: '',
       description: '',
       deadline: '',
       priority: '',
       isComplete: false,
     }
-    this.handleClose = this.handleClose.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
   }
 
-  handleClose() {
-    this.setState({
-      open: false
-    });
-  }
-
-  handleCancel() {
-    this.setState({
-      open: false
-    });
+  handleAdd() {
+    let task = [this.state.title, this.state.description]
   }
 
   render() {
   return (
     <div>
-    <Dialog onClose={this.state.handleClose} open={this.state.open}
+    <Dialog onClose={this.handleClose} open={this.props.open}
       PaperProps={{ style: {
       minHeight: '70%',
       maxHeight: '70%',
@@ -83,11 +72,11 @@ export default class SimpleDialog extends React.Component {
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
-          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.state.handleClose}>
+          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.props.handleClose}>
             <AddCircleIcon />
             Add
           </Button>
-          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={this.state.handleCancel} >
+          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={this.props.handleCancel} >
             <DoNotDisturbAltIcon />
             Cancel
           </Button>

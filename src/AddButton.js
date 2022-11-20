@@ -9,15 +9,28 @@ export default class AddButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      open: false
     }
     this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
   
   handleOpen() {
-    console.log("open");
     this.setState({
       open: true
+    });
+  }
+
+  handleClose() {
+    this.setState({
+      open: false
+    });
+  }
+
+  handleCancel() {
+    this.setState({
+      open: false
     });
   }
 
@@ -25,7 +38,7 @@ export default class AddButton extends React.Component {
   return (
     <div>
       <Button
-        onClick={this.state.handleOpen}
+        onClick={this.handleOpen}
         variant="contained"
         size="small"
         sx={{ position: 'absolute', right: '10px', top: '8px' }}
@@ -35,6 +48,8 @@ export default class AddButton extends React.Component {
       </Button>
       <SimpleDialog
         open={this.state.open}
+        handleClose={this.handleClose}
+        handleCancel={this.handleCancel}
       />
     </div>
   );
