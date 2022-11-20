@@ -94,6 +94,13 @@ export default class SimpleDialog extends React.Component {
       })
       validated = false;
     }
+    else if(this.props.taskList.some((curTask) => curTask[0] == this.state.title)){
+      this.setState({
+        titleError: true,
+        titleMessage: "Different Title is Required!"
+      })
+      validated = false;
+    }
     else {
       this.setState({
         titleError: false,
@@ -185,7 +192,7 @@ export default class SimpleDialog extends React.Component {
           <br />
           <FormControl sx={{position: 'absolute', right: '10%'}}>
             <FormLabel>Priority</FormLabel>
-              <RadioGroup row onChange={this.handlePriorityChange} defaultValue={"Low"}>
+              <RadioGroup row onChange={this.handlePriorityChange} value={this.state.priority}>
                 <FormControlLabel size='small' value="Low" control={<Radio />} label="Low" />
                 <FormControlLabel value="Med" control={<Radio />} label="Med" />
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
