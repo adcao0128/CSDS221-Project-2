@@ -30,6 +30,7 @@ export default class SimpleDialog extends React.Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleDeadlineChange = this.handleDeadlineChange.bind(this);
   }
 
   handleTitleChange(event) {
@@ -41,8 +42,14 @@ export default class SimpleDialog extends React.Component {
 
   handleDescriptionChange(event) {
     this.setState({
-      description: event.target.value}
-    );
+      description: event.target.value
+    });
+  }
+
+  handleDeadlineChange(event) {
+    this.setState({
+        deadline: event.target.value
+    });
   }
 
   handleAdd() {
@@ -86,8 +93,7 @@ export default class SimpleDialog extends React.Component {
             <DatePicker
               label="Deadline"
               value={this.state.deadline}
-              onChange={(deadlineChange) => {this.setState({
-                deadline: deadlineChange.target.value});}}
+              onChange={this.handleDeadlineChange}
               renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>
@@ -95,9 +101,9 @@ export default class SimpleDialog extends React.Component {
           <FormControl sx={{position: 'absolute', right: '10%'}}>
             <FormLabel>Priority</FormLabel>
               <RadioGroup row>
-                <FormControlLabel size='small' value="Low" control={<Radio />} label="Low" />
-                <FormControlLabel value="Med" control={<Radio />} label="Med" />
-                <FormControlLabel value="High" control={<Radio />} label="High"/>
+                <FormControlLabel onChange={this.setState({priority: "Low"})} size='small' value="Low" control={<Radio />} label="Low" />
+                <FormControlLabel onChange={this.setState({priority: "Med"})} value="Med" control={<Radio />} label="Med" />
+                <FormControlLabel onChange={this.setState({priority: "High"})}value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
           <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleAdd}>
