@@ -18,7 +18,25 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import EditIcon from '@mui/icons-material/Edit';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import toastr from 'toastr'
+import 'toastr/build/toastr.min.css'
 
+toastr.options = {
+  'closeButton': true,
+    'debug': false,
+    'newestOnTop': false,
+    'progressBar': false,
+    'positionClass': 'toast-top-right',
+    'preventDuplicates': false,
+    'showDuration': '1000',
+    'hideDuration': '1000',
+    'timeOut': '5000',
+    'extendedTimeOut': '1000',
+    'showEasing': 'swing',
+    'hideEasing': 'linear',
+    'showMethod': 'fadeIn',
+    'hideMethod': 'fadeOut',
+}
 
 export default class SimpleDialog extends React.Component {
   constructor(props) {
@@ -29,6 +47,10 @@ export default class SimpleDialog extends React.Component {
       deadline: null,
       priority: this.props.priority,
       isComplete: false,
+      titleError: false,
+      descriptionError: false,
+      titleMessage: '',
+      descriptionMessage: '',
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -36,6 +58,7 @@ export default class SimpleDialog extends React.Component {
     this.handleDeadlineChange = this.handleDeadlineChange.bind(this);
     this.handlePriorityChange = this.handlePriorityChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleCancelDoNothing = this.handleCancelDoNothing.bind(this);
   }
 
   handleTitleChange(event) {
@@ -63,7 +86,53 @@ export default class SimpleDialog extends React.Component {
   }
 
   handleAdd() {
-    this.props.addFunction(this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
+    let validated = true; 
+    if(this.state.title == '' || this.state.title == null){
+      this.setState({
+        titleError: true,
+        titleMessage: "Title is Required!"
+      })
+      validated = false;
+    }
+    else {
+      this.setState({
+        titleError: false,
+        titleMessage: ""
+      })
+    }
+    if(this.state.description == '' || this.state.description == null){
+      this.setState({
+        descriptionError: true,
+        descriptionMessage: "Description is Required!"
+      })
+      validated = false;
+    }
+    else {
+      this.setState({
+        descriptionError: false,
+        descriptionMessage: ""
+      })
+    }
+    if(validated) {
+      this.props.addFunction(this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
+      this.setState({
+        title: '',
+        description: '',
+        deadline: null,
+        priority: this.props.priority,
+        isComplete: false,
+      });
+      toastr.success("Task added sucesssfuly!")
+      this.props.handleClose();
+    }
+  }
+
+  handleUpdate(){
+    this.props.updateFunction(this.props.thisTask, this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
+    this.props.handleClose();
+  }
+
+  handleCancelDoNothing() {
     this.setState({
       title: '',
       description: '',
@@ -71,12 +140,7 @@ export default class SimpleDialog extends React.Component {
       priority: this.props.priority,
       isComplete: false,
     });
-    this.props.handleClose();
-  }
-
-  handleUpdate(){
-    this.props.updateFunction(this.props.thisTask, this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
-    this.props.handleClose();
+    this.props.handleCancel();
   }
 
   render() {
@@ -105,10 +169,10 @@ export default class SimpleDialog extends React.Component {
         autoComplete="off"
       >
         <div>
-          {!this.props.hideTitle && <TextField id="Title" label="Title" value={this.state.title} onChange={this.handleTitleChange} />}
+          {!this.props.hideTitle && <TextField error={this.state.titleError} helperText={this.state.titleMessage} id="title" label="Title" value={this.state.title} onChange={this.handleTitleChange} />}
         
           <br />
-          <TextField id="Description" value={this.state.description} label="Description" onChange={this.handleDescriptionChange}/>
+          <TextField error={this.state.descriptionError} helperText={this.state.descriptionMessage} id="Description" value={this.state.description} label="Description" onChange={this.handleDescriptionChange}/>
           <br />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
@@ -121,7 +185,7 @@ export default class SimpleDialog extends React.Component {
           <br />
           <FormControl sx={{position: 'absolute', right: '10%'}}>
             <FormLabel>Priority</FormLabel>
-              <RadioGroup row onChange={this.handlePriorityChange}>
+              <RadioGroup row onChange={this.handlePriorityChange} defaultValue={"Low"}>
                 <FormControlLabel size='small' value="Low" control={<Radio />} label="Low" />
                 <FormControlLabel value="Med" control={<Radio />} label="Med" />
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
@@ -134,7 +198,7 @@ export default class SimpleDialog extends React.Component {
             <EditIcon />
             Edit
           </Button>}
-          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={this.props.handleCancel} >
+          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={this.handleCancelDoNothing} >
             <DoNotDisturbAltIcon />
             Cancel
           </Button>

@@ -51,6 +51,7 @@ export default class UpdateButton extends React.Component {
         thisDescription = {this.props.thisDescription}
         thisDeadline = {this.props.thisDeadline}
         thisPriority = {this.props.thisPriority}
+        taskList={this.state.tasks}
       />
     </div>
   );

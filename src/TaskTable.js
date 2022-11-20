@@ -15,6 +15,25 @@ import Button from '@mui/material/Button';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import 'font-awesome/css/font-awesome.min.css';
 import UpdateButton from './UpdateButton';
+import toastr from 'toastr'
+import 'toastr/build/toastr.min.css'
+
+toastr.options = {
+  'closeButton': true,
+    'debug': false,
+    'newestOnTop': false,
+    'progressBar': false,
+    'positionClass': 'toast-top-right',
+    'preventDuplicates': false,
+    'showDuration': '1000',
+    'hideDuration': '1000',
+    'timeOut': '5000',
+    'extendedTimeOut': '1000',
+    'showEasing': 'swing',
+    'hideEasing': 'linear',
+    'showMethod': 'fadeIn',
+    'hideMethod': 'fadeOut',
+}
 
 export default class TaskTable extends React.Component {
   constructor(props) {
@@ -52,16 +71,18 @@ export default class TaskTable extends React.Component {
         tasks: nextTask
       }
     );
+
+    toastr.success('Task sucessfully deleted');
   }
 
   handleUpdate(task, title, description, deadline, priority, isComplete) {
     let nextTask = this.state.tasks.map((curTask) => curTask = task[0] == curTask[0] ? [title, description, deadline, priority, isComplete] : curTask)
-    
     this.setState(
       {
         tasks: nextTask
       }
     );
+    toastr.success('Task sucessfully updated');
   }
 
   render() {
@@ -74,7 +95,7 @@ export default class TaskTable extends React.Component {
             <TableCell align="center">{task[3]}</TableCell>
             <TableCell align="center"><Checkbox checked={task[4]} onChange={() => this.handleChecked(task) }/></TableCell>
             <TableCell align="center">
-              {!task[4] && <UpdateButton thisTask = {task} thisTitle={task[0]} thisDescription={task[1]} thisDeadline={task[2]} thisPriority={task[3]} updateFunction={this.handleUpdate}/>}
+              {!task[4] && <UpdateButton taskList={this.state.tasks} thisTask = {task} thisTitle={task[0]} thisDescription={task[1]} thisDeadline={task[2]} thisPriority={task[3]} updateFunction={this.handleUpdate}/>}
               <Button size='small' variant='contained' color='error' onClick={() => this.handleDelete(task)}><HighlightOffIcon />Delete</Button>
             </TableCell>
           </TableRow>);
@@ -94,7 +115,7 @@ export default class TaskTable extends React.Component {
         >
           <MenuIcon />
           <Typography variant="button">FRAMEWORKS</Typography>
-          <AddButton addFunction={this.handleAdd}/>
+          <AddButton taskList={this.state.tasks} addFunction={this.handleAdd}/>
         </Card>
         <TableContainer sx={{position: 'absolute', top: '50px'}}>
           <Table aria-label="simple table">
