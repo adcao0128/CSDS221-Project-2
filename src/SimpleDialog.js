@@ -18,6 +18,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import toastr from 'toastr'
 import 'toastr/build/toastr.min.css'
+import moment from 'moment'
 
 toastr.options = {
   'closeButton': true,
@@ -42,7 +43,7 @@ export default class SimpleDialog extends React.Component {
     this.state = {
       title: this.props.thisTitle,
       description: this.props.thisDescription,
-      deadline: null,
+      deadline: this.props.thisDeadline,
       priority: this.props.thisPriority,
       isComplete: false,
       titleError: false,
@@ -58,7 +59,8 @@ export default class SimpleDialog extends React.Component {
     this.handleDeadlineChange = this.handleDeadlineChange.bind(this);
     this.handlePriorityChange = this.handlePriorityChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleCancelDoNothing = this.handleCancelDoNothing.bind(this);
+    this.handleCancelAdd = this.handleCancelAdd.bind(this);
+    this.handleCancelUpdate = this.handleCancelUpdate.bind(this);
   }
 
   handleTitleChange(event) {
@@ -120,7 +122,6 @@ export default class SimpleDialog extends React.Component {
         descriptionMessage: ""
       })
     }
-    /*
     if(this.state.deadline == '' || this.state.deadline == null){
       this.setState({
         deadlineError: true,
@@ -134,7 +135,6 @@ export default class SimpleDialog extends React.Component {
         deadlineMessage: ""
       })
     }
-    */
     if(validated) {
       this.props.addFunction(this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
       this.setState({
@@ -154,12 +154,25 @@ export default class SimpleDialog extends React.Component {
     this.props.handleClose();
   }
 
-  handleCancelDoNothing() {
+  handleCancelAdd() {
     this.setState({
       title: '',
       description: '',
       deadline: null,
       priority: 'Low',
+      isComplete: false,
+      titleError: false,
+      descriptionError: false,
+      deadlineError: false,
+      titleMessage: '',
+      descriptionMessage: '',
+      deadlineMessage: '',
+    });
+    this.props.handleCancel();
+  }
+
+  handleCancelUpdate() {
+    this.setState({
       isComplete: false,
       titleError: false,
       descriptionError: false,
@@ -208,10 +221,10 @@ export default class SimpleDialog extends React.Component {
               value={this.state.deadline}
               onChange={(value) => {
                 this.setState({
-                  deadline: value,
+                  deadline: moment(value.toString()).format("MM/DD/YYYY"),
                 });
               }}
-              renderInput={(params) => <TextField error={this.state.deadlineError} helperText={this.state.deadlineMessage} {...params} />}
+              renderInput={(params) => <TextField error={this.state.deadlineError} value={this.state.deadline} helperText={this.state.deadlineMessage} {...params} />}
             />
           </LocalizationProvider>
           <br />
@@ -234,10 +247,13 @@ export default class SimpleDialog extends React.Component {
             <EditIcon />
             Edit
           </Button>}
-          <Button color='error' size='small' variant='contained' sx = {{position: 'absolute', right: '5%'}} onClick={this.handleCancelDoNothing} >
+          {!this.props.hideTitle ? <Button color='error' size='small' variant='contained' sx = {{position: 'absolute', right: '5%'}} onClick={this.handleCancelAdd} >
             <DoNotDisturbAltIcon />
             Cancel
-          </Button>
+          </Button> : <Button color='error' size='small' variant='contained' sx = {{position: 'absolute', right: '5%'}} onClick={this.handleCancelUpdate} >
+            <DoNotDisturbAltIcon />
+            Cancel
+          </Button>}
           <br />
           <br />
           <br />
