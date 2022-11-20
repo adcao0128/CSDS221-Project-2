@@ -31,6 +31,7 @@ export default class SimpleDialog extends React.Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleDeadlineChange = this.handleDeadlineChange.bind(this);
+    this.handlePriorityChange = this.handlePriorityChange.bind(this);
   }
 
   handleTitleChange(event) {
@@ -48,7 +49,13 @@ export default class SimpleDialog extends React.Component {
 
   handleDeadlineChange(event) {
     this.setState({
-        deadline: event.target.value
+      deadline: event.target.value
+    });
+  }
+
+  handlePriorityChange(event) {
+    this.setState({
+      priority: event.target.value
     });
   }
 
@@ -100,10 +107,10 @@ export default class SimpleDialog extends React.Component {
           <br />
           <FormControl sx={{position: 'absolute', right: '10%'}}>
             <FormLabel>Priority</FormLabel>
-              <RadioGroup row>
-                <FormControlLabel onChange={this.setState({priority: "Low"})} size='small' value="Low" control={<Radio />} label="Low" />
-                <FormControlLabel onChange={this.setState({priority: "Med"})} value="Med" control={<Radio />} label="Med" />
-                <FormControlLabel onChange={this.setState({priority: "High"})}value="High" control={<Radio />} label="High"/>
+              <RadioGroup row onChange={this.handlePriorityChange}>
+                <FormControlLabel size='small' value="Low" control={<Radio />} label="Low" />
+                <FormControlLabel value="Med" control={<Radio />} label="Med" />
+                <FormControlLabel value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
           <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.handleAdd}>
