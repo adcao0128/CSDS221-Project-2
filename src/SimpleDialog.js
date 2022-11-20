@@ -23,20 +23,16 @@ export default class SimpleDialog extends React.Component {
     this.state = {
       title: '',
       description: '',
-      deadline: '',
+      deadline: null,
       priority: '',
       isComplete: false,
     }
   }
 
-  handleAdd() {
-    let task = [this.state.title, this.state.description, this.state.deadline, this.state.priority, ]
-  }
-
   render() {
   return (
     <div>
-    <Dialog onClose={this.handleClose} open={this.props.open}
+    <Dialog open={this.props.open}
       PaperProps={{ style: {
       minHeight: '70%',
       maxHeight: '70%',
@@ -60,16 +56,20 @@ export default class SimpleDialog extends React.Component {
         autoComplete="off"
       >
         <div>
-          <TextField id="Title" label="Title" />
+          <TextField id="Title" label="Title" onChange={(value)=> {this.setState({title: value})}}/>
           <br />
           <TextField id="Description" label="Description" />
           <br />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker
-        label="Deadline"
-        renderInput={(params) => <TextField {...params} />}
-      />
-    </LocalizationProvider>
+            <DatePicker
+              label="Deadline"
+              value={this.state.deadline}
+              onChange={(newValue) => {
+                this.setState({deadline: newValue});
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
           <br />
           <FormControl sx={{position: 'absolute', right: '10%'}}>
             <FormLabel>Priority</FormLabel>
@@ -79,7 +79,7 @@ export default class SimpleDialog extends React.Component {
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
-          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.props.handleClose}>
+          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={this.props.handleClose(this.state.title,this.state.description,this.state.deadline,this.state.priority)}>
             <AddCircleIcon />
             Add
           </Button>
