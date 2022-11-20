@@ -5,12 +5,6 @@ import React, { Component } from 'react';
 import React, { useState } from 'react';
 import SimpleDialog from './SimpleDialog';
 
-export function addTask({arr}) {
-
-}
-
-
-
 export default function AddButton() {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(null);
@@ -24,6 +18,10 @@ export default function AddButton() {
     setOpen(false);
     setSelectedValue(value);
   };
+
+  const handleCancel = () => {
+    setOpen(false);
+  }
 
   return (
     <div>
@@ -40,6 +38,7 @@ export default function AddButton() {
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
+        onCancel={handleCancel}
       />
     </div>
   );

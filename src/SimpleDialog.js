@@ -16,14 +16,14 @@ import Button from '@mui/material/Button';
 import React from 'react';
 
 export default function SimpleDialog(props) {
-  const { onClose, selectedValue, open } = props;
+  const { onClose, onCancel, selectedValue, open } = props;
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  const handleClick = () => {
-    
+  const handleCancel = () => {
+    onCancel();
   };
 
   return (
@@ -65,11 +65,11 @@ export default function SimpleDialog(props) {
                 <FormControlLabel value="High" control={<Radio />} label="High"/>
               </RadioGroup>
           </FormControl>
-          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={handleClick}>
+          <Button size='small' variant='contained' sx={{position: 'absolute', right: '40%', top: '90%'}} onClick={handleClose}>
             <AddCircleIcon />
             Add
           </Button>
-          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={handleClose} >
+          <Button color='error' size='small' variant='contained' sx={{position: 'absolute', right: '5%', top: '90%'}} onClick={handleCancel} >
             <DoNotDisturbAltIcon />
             Cancel
           </Button>
