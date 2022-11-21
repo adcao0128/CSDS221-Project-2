@@ -124,20 +124,8 @@ export default class SimpleDialog extends React.Component {
         descriptionMessage: ""
       })
     }
-    if(this.state.deadline == '' || this.state.deadline == null){
-      this.setState({
-        deadlineError: true,
-        deadlineMessage: "Deadline is Required!"
-      })
-      validated = false;
-    }
-    else {
-      this.setState({
-        deadlineError: false,
-        deadlineMessage: ""
-      })
-    }
     if(validated) {
+      this.props.handleClose();
       this.props.addFunction(this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
       this.setState({
         title: '',
@@ -147,7 +135,6 @@ export default class SimpleDialog extends React.Component {
         isComplete: false,
       });
       toastr.success("Task added sucesssfuly!")
-      this.props.handleClose();
     }
   }
 
@@ -167,20 +154,8 @@ export default class SimpleDialog extends React.Component {
         descriptionMessage: ""
       })
     }
-    if(this.state.deadline == '' || this.state.deadline == null){
-      this.setState({
-        deadlineError: true,
-        deadlineMessage: "Deadline is Required!"
-      })
-      validated = false;
-    }
-    else {
-      this.setState({
-        deadlineError: false,
-        deadlineMessage: ""
-      })
-    }
     if(validated) {
+      this.props.handleClose();
       this.props.updateFunction(this.props.thisTask, this.state.title, this.state.description, this.state.deadline, this.state.priority, this.state.isComplete);
       this.setState({
         title: '',
@@ -190,11 +165,11 @@ export default class SimpleDialog extends React.Component {
         isComplete: false,
       });
       toastr.success('Task updated successfully!');
-      this.props.handleClose();
     }
   }
 
   handleCancelAdd() {
+    this.props.handleCancel();
     this.setState({
       title: '',
       description: '',
@@ -208,10 +183,10 @@ export default class SimpleDialog extends React.Component {
       descriptionMessage: '',
       deadlineMessage: '',
     });
-    this.props.handleCancel();
   }
 
   handleCancelUpdate() {
+    this.props.handleCancel();
     this.setState({
       isComplete: false,
       titleError: false,
@@ -221,7 +196,6 @@ export default class SimpleDialog extends React.Component {
       descriptionMessage: '',
       deadlineMessage: '',
     });
-    this.props.handleCancel();
   }
 
   render() {

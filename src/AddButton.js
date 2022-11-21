@@ -57,7 +57,7 @@ export default class AddButton extends React.Component {
         thisTitle = {''}
         thisDescription = {''}
         thisDeadline ={null}
-        thisPriority = {'Low'}
+        thisPriority = {''}
         taskList={this.props.taskList}
       />
     </div>
