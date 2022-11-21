@@ -131,7 +131,7 @@ export default class SimpleDialog extends React.Component {
         title: '',
         description: '',
         deadline: null,
-        priority: 'Low',
+        priority: '',
         isComplete: false,
       });
       toastr.success("Task added sucesssfuly!")
